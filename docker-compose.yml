@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/go/src/github.com/ronnycoding/go-auth-crud
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=goauthcrud
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+  db:
+    image: "postgres:13"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=goauthcrud
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+volumes:
+  postgres-data:
